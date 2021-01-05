@@ -14,9 +14,10 @@ public class Api {
     private String serverAddress;
     private RestTemplate restTemplate;
 
-    public Api(String serverAddress) {
+    public Api(String serverAddress, String basicAuthUser, String basicAuthPassword) {
         this.serverAddress = serverAddress;
-        restTemplate = new RestTemplateBuilder().build();
+        restTemplate = new RestTemplateBuilder().basicAuthentication(basicAuthUser, basicAuthPassword).build();
+
     }
 
     public String startGame(String name) {

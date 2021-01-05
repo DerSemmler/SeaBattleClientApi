@@ -3,7 +3,7 @@ package org.thecircle.seabattleclient;
 public class Main {
 
     public static void main(String[] args) {
-        Api api = new Api("http://localhost:8080");
+        Api api = new Api("https://tomcat.nordbake.de", "user", "pw");
 
         System.out.println(api.startGame("test"));
         System.out.println(api.startGame("test"));
