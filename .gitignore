@@ -26,4 +26,5 @@ hs_err_pid*
 
 .idea
 target
-SeaBattleClient.iml
+/SeaBattleClient.iml
+/config.properties
