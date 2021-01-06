@@ -67,8 +67,9 @@ public class ConsoleReader {
                         case "stopall":
                             if(lineSplit.length == 3) {
                                 System.out.println(api.stopAllGames(Integer.parseInt(lineSplit[1]), lineSplit[2]));
+                            } else {
+                                System.out.println(api.stopAllGames(player, password));
                             }
-                            System.out.println(api.stopAllGames(player, password));
                             break;
                         case "stop":
                             System.out.println(api.stopGame(lineSplit[1], player, password));
@@ -77,7 +78,7 @@ public class ConsoleReader {
                             System.out.println(api.restartGame(lineSplit[1], player, password));
                             break;
                         case "register":
-                            response = api.register(game, Integer.parseInt(lineSplit[2]), lineSplit[3]);
+                            response = api.register(game, Integer.parseInt(lineSplit[1]), lineSplit[2]);
                             if(response.equals("player registered")) {
                                 player = Integer.parseInt(lineSplit[2]);
                                 password = lineSplit[3];
