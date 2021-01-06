@@ -12,7 +12,7 @@ public class DebugConsoleAlpha {
     private int player = -1;
     private String password = "";
     private String game = "";
-    private List<Ship> ships = new ArrayList<>();
+    private List<ShipCoordinates> shipCoordinates = new ArrayList<>();
 
     public DebugConsoleAlpha(Api api) {
         this.api = api;
@@ -92,15 +92,15 @@ public class DebugConsoleAlpha {
                             System.out.println(api.skip(game, player, password));
                             break;
                         case "addship":
-                            ships.add(new Ship(Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2]),
+                            shipCoordinates.add(new ShipCoordinates(Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2]),
                                     Integer.parseInt(lineSplit[3]), Integer.parseInt(lineSplit[4])));
                             System.out.println("ship added. Use 'placeships' to send them to the server");
                             break;
                         case "clearships":
-                            ships = new ArrayList<>();
+                            shipCoordinates = new ArrayList<>();
                             break;
                         case "placeships":
-                            System.out.println(api.placeShips(game, player, password, ships.toArray(new Ship[0])));
+                            System.out.println(api.placeShips(game, player, password, shipCoordinates.toArray(new ShipCoordinates[0])));
                             break;
                         case "winner":
                             System.out.println(api.getWinner(game, player, password));
