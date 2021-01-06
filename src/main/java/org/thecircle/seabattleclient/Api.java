@@ -133,7 +133,7 @@ public class Api {
     }
 
     public String getVisual(String game, int player, String password, String arg) {
-        String url = serverAddress + "/api/" + game + "/winner/" + arg + "/" + player + "?pw=" + password;
+        String url = serverAddress + "/api/" + game + "/visual/" + arg + "/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
