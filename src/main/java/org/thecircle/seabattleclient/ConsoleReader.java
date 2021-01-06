@@ -1,10 +1,12 @@
 package org.thecircle.seabattleclient;
 
+import org.springframework.beans.PropertyAccessorUtils;
 import org.thecircle.seabattleclient.payload.PlaceShipsRequest;
 import org.thecircle.seabattleclient.payload.ShipPayload;
 import org.thecircle.seabattleclient.payload.ShootRequest;
 
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -72,18 +74,23 @@ public class ConsoleReader {
                             }
                             break;
                         case "stop":
-                            System.out.println(api.stopGame(lineSplit[1], player, password));
+                            System.out.println(api.stopGame(game, player, password));
                             break;
                         case "restart":
-                            System.out.println(api.restartGame(lineSplit[1], player, password));
+                            System.out.println(api.restartGame(game, player, password));
                             break;
                         case "register":
-                            response = api.register(game, Integer.parseInt(lineSplit[1]), lineSplit[2]);
-                            if(response.equals("player registered")) {
-                                player = Integer.parseInt(lineSplit[2]);
-                                password = lineSplit[3];
+                            if(!game.isEmpty()) {
+                                response = api.register(game, Integer.parseInt(lineSplit[1]), lineSplit[2]);
+                                if (response.equals("player registered")) {
+                                    player = Integer.parseInt(lineSplit[1]);
+                                    password = lineSplit[2];
+                                }
+                                System.out.println(response);
                             }
-                            System.out.println(response);
+                            else {
+                                System.out.println("Select a game first. Use 'setgame'");
+                            }
                             break;
                         case "myturn":
                             System.out.println(api.myTurn(game, player, password));
@@ -121,6 +128,8 @@ public class ConsoleReader {
                     }
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("incomplete/wrong input");
+                    System.out.println(e);
+
                 }
             }
         }).start();
