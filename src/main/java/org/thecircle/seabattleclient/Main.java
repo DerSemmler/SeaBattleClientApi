@@ -3,7 +3,14 @@ package org.thecircle.seabattleclient;
 public class Main {
 
     public static void main(String[] args) {
-        Api api = new Api("https://tomcat.nordbake.de", "user", "pw");
+
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String address = propertiesReader.getServerAddress();
+        String userName = propertiesReader.getBasicAuthUser();
+        String password = propertiesReader.getBasicAuthPw();
+
+
+        Api api = new Api(address, userName, password);
 
         System.out.println(api.startGame("test"));
         System.out.println(api.startGame("test"));

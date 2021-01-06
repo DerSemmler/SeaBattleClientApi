@@ -9,7 +9,8 @@ import java.util.Properties;
 public class PropertiesReader {
 
     private String serverAddress = "url";
-    private String password = "pASsWD123";
+    private String basicAuthUser = "userName";
+    private String basicAuthPw = "pASsWD123";
 
     public PropertiesReader(){
         Properties props = new Properties();
@@ -20,8 +21,11 @@ public class PropertiesReader {
                 if (props.containsKey("serverAddress")) serverAddress = props.getProperty("serverAddress");
                 else props.setProperty("serverAddress", serverAddress);
 
-                if (props.containsKey("password")) password = props.getProperty("password");
-                else props.setProperty("password", password);
+                if (props.containsKey("userName")) basicAuthUser = props.getProperty("userName");
+                else props.setProperty("userName", basicAuthUser);
+
+                if (props.containsKey("password")) basicAuthPw = props.getProperty("password");
+                else props.setProperty("password", basicAuthPw);
 
                 props.store(output, null);
 
@@ -39,7 +43,8 @@ public class PropertiesReader {
             Properties props = new Properties();
 
             props.setProperty("serverAddress", serverAddress);
-            props.setProperty("password", password);
+            props.setProperty("password", basicAuthPw);
+            props.setProperty("userName", basicAuthUser);
 
             props.store(output, null);
             System.out.println("config.properties created");
