@@ -17,8 +17,8 @@ public class Api {
 
     }
 
-    public String startGame(String name) {
-        String url = serverAddress + "/api/" + name + "/newgame";
+    public String startGame(String gameName) {
+        String url = serverAddress + "/api/" + gameName + "/newgame";
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
@@ -37,8 +37,8 @@ public class Api {
         }
     }
 
-    public String stopGame(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/stop/" + player + "?pw=" + password;
+    public String stopGame(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/stop/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
@@ -47,8 +47,8 @@ public class Api {
         }
     }
 
-    public String restartGame(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/restart/" + player + "?pw=" + password;
+    public String restartGame(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/restart/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
@@ -57,8 +57,8 @@ public class Api {
         }
     }
 
-    public String register(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/register/" + player + "?pw=" + password;
+    public String register(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/register/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
@@ -67,8 +67,8 @@ public class Api {
         }
     }
 
-    public GameInfo getGameInfo(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/info/" + player + "?pw=" + password;
+    public GameInfo getGameInfo(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/info/" + player + "?pw=" + password;
         try {
             ResponseEntity<GameInfo> response = restTemplate.getForEntity(url, GameInfo.class);
             return response.getBody();
@@ -78,8 +78,8 @@ public class Api {
         }
     }
 
-    public boolean myTurn(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/myturn/" + player + "?pw=" + password;
+    public boolean myTurn(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/myturn/" + player + "?pw=" + password;
         try {
             ResponseEntity<Boolean> response = restTemplate.getForEntity(url, Boolean.class);
             return response.getBody();
@@ -89,8 +89,8 @@ public class Api {
         }
     }
 
-    public String skip(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/skip/" + player + "?pw=" + password;
+    public String skip(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/skip/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
@@ -99,8 +99,8 @@ public class Api {
         }
     }
 
-    public String placeShips(String game, int player, String password, ShipCoordinates[] shipCoordinates) {
-        String url = serverAddress + "/api/" + game + "/placeships/" + player + "?pw=" + password;
+    public String placeShips(String gameName, int player, String password, ShipCoordinates[] shipCoordinates) {
+        String url = serverAddress + "/api/" + gameName + "/placeships/" + player + "?pw=" + password;
         PlaceShipsRequest request = new PlaceShipsRequest(shipCoordinates);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
@@ -110,8 +110,8 @@ public class Api {
         }
     }
 
-    public String shoot(String game, int player, String password, int x, int y) {
-        String url = serverAddress + "/api/" + game + "/shoot/" + player + "?pw=" + password;
+    public String shoot(String gameName, int player, String password, int x, int y) {
+        String url = serverAddress + "/api/" + gameName + "/shoot/" + player + "?pw=" + password;
         ShootRequest request = new ShootRequest(x, y);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
@@ -121,18 +121,19 @@ public class Api {
         }
     }
 
-    public String getWinner(String game, int player, String password) {
-        String url = serverAddress + "/api/" + game + "/winner/" + player + "?pw=" + password;
+    public int getWinner(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/winner/" + player + "?pw=" + password;
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            ResponseEntity<Integer> response = restTemplate.getForEntity(url, Integer.class);
             return response.getBody();
         } catch (HttpClientErrorException | ResourceAccessException e) {
-            return e.getMessage();
+            System.out.println(e);
+            return -1;
         }
     }
 
-    public String getVisual(String game, int player, String password, String arg) {
-        String url = serverAddress + "/api/" + game + "/visual/" + arg + "/" + player + "?pw=" + password;
+    public String getVisual(String gameName, int player, String password, String arg) {
+        String url = serverAddress + "/api/" + gameName + "/visual/" + arg + "/" + player + "?pw=" + password;
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return response.getBody();
