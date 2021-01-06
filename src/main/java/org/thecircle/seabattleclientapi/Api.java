@@ -99,7 +99,6 @@ public class Api {
         }
     }
 
-    public String placeShips(String game, int player, String password, Ship[] ships) {
     public String placeShips(String game, int player, String password, ShipCoordinates[] shipCoordinates) {
         String url = serverAddress + "/api/" + game + "/placeships/" + player + "?pw=" + password;
         PlaceShipsRequest request = new PlaceShipsRequest(shipCoordinates);
