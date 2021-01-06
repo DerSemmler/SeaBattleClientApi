@@ -12,15 +12,8 @@ public class Main {
 
         Api api = new Api(address, userName, password);
 
-        System.out.println(api.startGame("test"));
-        System.out.println(api.startGame("test"));
-        System.out.println(api.restartGame("test", 0, "admin"));
-        System.out.println(api.stopGame("test", 0, "admin"));
-        System.out.println(api.restartGame("test", 0, "admin"));
-        System.out.println(api.startGame("test"));
-        System.out.println(api.restartGame("test", 0, "admin2"));
-        System.out.println(api.stopAllGames(0, "admin"));
-        System.out.println(api.restartGame("test", 0, "admin"));
+        ConsoleReader reader = new ConsoleReader(api);
+        reader.read();
 
     }
 }
