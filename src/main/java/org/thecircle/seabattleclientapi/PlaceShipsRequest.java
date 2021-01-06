@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 class PlaceShipsRequest {
 
-    private ShipCoordinates[] shipCoordinates;
+    private ShipPayload[] ships;
 
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShipCoordinates {
+public class ShipPayload {
 
     private int xOne;
     private int yOne;

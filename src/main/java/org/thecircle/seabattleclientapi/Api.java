@@ -14,7 +14,6 @@ public class Api {
     public Api(String serverAddress, String basicAuthUser, String basicAuthPassword) {
         this.serverAddress = serverAddress;
         restTemplate = new RestTemplateBuilder().basicAuthentication(basicAuthUser, basicAuthPassword).build();
-
     }
 
     public String startGame(String gameName) {
@@ -99,7 +98,7 @@ public class Api {
         }
     }
 
-    public String placeShips(String gameName, int player, String password, ShipCoordinates[] shipCoordinates) {
+    public String placeShips(String gameName, int player, String password, ShipPayload[] shipCoordinates) {
         String url = serverAddress + "/api/" + gameName + "/placeships/" + player + "?pw=" + password;
         PlaceShipsRequest request = new PlaceShipsRequest(shipCoordinates);
         try {
