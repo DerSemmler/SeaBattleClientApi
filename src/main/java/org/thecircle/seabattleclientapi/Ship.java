@@ -1,4 +1,4 @@
-package org.thecircle.seabattleclient.payload;
+package org.thecircle.seabattleclientapi;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlaceShipsRequest {
+public class Ship {
 
-    private ShipPayload[] ships;
+    private int xOne;
+    private int yOne;
+    private int xTwo;
+    private int yTwo;
 
 }

@@ -1,13 +1,10 @@
-package org.thecircle.seabattleclient;
+package org.thecircle.seabattleclientapi;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
-import org.thecircle.seabattleclient.payload.GameInfoPayload;
-import org.thecircle.seabattleclient.payload.PlaceShipsRequest;
-import org.thecircle.seabattleclient.payload.ShootRequest;
 
 public class Api {
 
@@ -70,10 +67,10 @@ public class Api {
         }
     }
 
-    public GameInfoPayload getGameInfo(String game, int player, String password) {
+    public GameInfo getGameInfo(String game, int player, String password) {
         String url = serverAddress + "/api/" + game + "/info/" + player + "?pw=" + password;
         try {
-            ResponseEntity<GameInfoPayload> response = restTemplate.getForEntity(url, GameInfoPayload.class);
+            ResponseEntity<GameInfo> response = restTemplate.getForEntity(url, GameInfo.class);
             return response.getBody();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             System.out.println(e);
@@ -102,8 +99,9 @@ public class Api {
         }
     }
 
-    public String placeShips(String game, int player, String password, PlaceShipsRequest request) {
+    public String placeShips(String game, int player, String password, Ship[] ships) {
         String url = serverAddress + "/api/" + game + "/placeships/" + player + "?pw=" + password;
+        PlaceShipsRequest request = new PlaceShipsRequest(ships);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
             return response.getBody();
@@ -112,8 +110,9 @@ public class Api {
         }
     }
 
-    public String shoot(String game, int player, String password, ShootRequest request) {
+    public String shoot(String game, int player, String password, int x, int y) {
         String url = serverAddress + "/api/" + game + "/shoot/" + player + "?pw=" + password;
+        ShootRequest request = new ShootRequest(x, y);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
             return response.getBody();

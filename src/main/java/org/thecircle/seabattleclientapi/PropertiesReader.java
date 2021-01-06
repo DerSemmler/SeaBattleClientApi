@@ -1,4 +1,4 @@
-package org.thecircle.seabattleclient;
+package org.thecircle.seabattleclientapi;
 
 import lombok.Getter;
 
@@ -6,17 +6,28 @@ import java.io.*;
 import java.util.Properties;
 
 @Getter
-public class PropertiesReader {
+class PropertiesReader {
 
     private String serverAddress = "url";
     private String basicAuthUser = "userName";
     private String basicAuthPw = "pASsWD123";
 
+    private String configPath = "config.properties";
+
     public PropertiesReader(){
+        build();
+    }
+
+    public PropertiesReader(String path) {
+        configPath = path + configPath;
+        build();
+    }
+
+    private void build() {
         Properties props = new Properties();
-        try (InputStream inStream = new FileInputStream("config.properties")) {
+        try (InputStream inStream = new FileInputStream(configPath)) {
             props.load(inStream);
-            try (OutputStream output = new FileOutputStream("config.properties")) {
+            try (OutputStream output = new FileOutputStream(configPath)) {
 
                 if (props.containsKey("serverAddress")) serverAddress = props.getProperty("serverAddress");
                 else props.setProperty("serverAddress", serverAddress);
@@ -39,7 +50,7 @@ public class PropertiesReader {
     }
 
     private void createNewPropertiesFile() {
-        try (OutputStream output = new FileOutputStream("config.properties")) {
+        try (OutputStream output = new FileOutputStream(configPath)) {
             Properties props = new Properties();
 
             props.setProperty("serverAddress", serverAddress);

@@ -1,4 +1,4 @@
-package org.thecircle.seabattleclient.payload;
+package org.thecircle.seabattleclientapi;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameInfoPayload {
+public class GameInfo {
 
     private String gameState;
     private int rounds;

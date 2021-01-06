@@ -1,27 +1,20 @@
-package org.thecircle.seabattleclient;
-
-import org.springframework.beans.PropertyAccessorUtils;
-import org.thecircle.seabattleclient.payload.PlaceShipsRequest;
-import org.thecircle.seabattleclient.payload.ShipPayload;
-import org.thecircle.seabattleclient.payload.ShootRequest;
+package org.thecircle.seabattleclientapi;
 
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class ConsoleReader {
+public class DebugConsoleAlpha {
 
     private boolean read = true;
     private Api api;
     private int player = -1;
     private String password = "";
     private String game = "";
-    private List<ShipPayload> ships = new ArrayList<>();
+    private List<Ship> ships = new ArrayList<>();
 
-    public ConsoleReader(Api api) {
+    public DebugConsoleAlpha(Api api) {
         this.api = api;
     }
 
@@ -99,7 +92,7 @@ public class ConsoleReader {
                             System.out.println(api.skip(game, player, password));
                             break;
                         case "addship":
-                            ships.add(new ShipPayload(Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2]),
+                            ships.add(new Ship(Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2]),
                                     Integer.parseInt(lineSplit[3]), Integer.parseInt(lineSplit[4])));
                             System.out.println("ship added. Use 'placeships' to send them to the server");
                             break;
@@ -107,15 +100,14 @@ public class ConsoleReader {
                             ships = new ArrayList<>();
                             break;
                         case "placeships":
-                            PlaceShipsRequest request = new PlaceShipsRequest(ships.toArray(new ShipPayload[0]));
-                            System.out.println(api.placeShips(game, player, password, request));
+                            System.out.println(api.placeShips(game, player, password, ships.toArray(new Ship[0])));
                             break;
                         case "winner":
                             System.out.println(api.getWinner(game, player, password));
                             break;
                         case "shoot":
                             System.out.println(api.shoot(game, player, password,
-                                    new ShootRequest(Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2]))));
+                                    Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2])));
                             break;
                         case "visual":
                             System.out.println(api.getVisual(game, player, password, lineSplit[1]));
