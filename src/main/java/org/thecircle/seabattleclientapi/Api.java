@@ -16,6 +16,19 @@ public class Api {
         restTemplate = new RestTemplateBuilder().basicAuthentication(basicAuthUser, basicAuthPassword).build();
     }
 
+    public Api(String serverAddress) {
+        this.serverAddress = serverAddress;
+        restTemplate = new RestTemplateBuilder().build();
+    }
+
+    public void activeBasicAuthentication(String basicAuthUser, String basicAuthPassword) {
+        restTemplate = new RestTemplateBuilder().basicAuthentication(basicAuthUser, basicAuthPassword).build();
+    }
+
+    public void deactivateBasicAuthentication() {
+        restTemplate = new RestTemplateBuilder().build();
+    }
+
     public String startGame(String gameName) {
         String url = serverAddress + "/api/" + gameName + "/newgame";
         try {
@@ -98,7 +111,7 @@ public class Api {
         }
     }
 
-    public String placeShips(String gameName, int player, String password, ShipPayload[] shipCoordinates) {
+    public String placeShips(String gameName, int player, String password, ShipCoordinates[] shipCoordinates) {
         String url = serverAddress + "/api/" + gameName + "/placeships/" + player + "?pw=" + password;
         PlaceShipsRequest request = new PlaceShipsRequest(shipCoordinates);
         try {

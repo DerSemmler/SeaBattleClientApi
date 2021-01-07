@@ -23,7 +23,6 @@ public class ApiBuilder {
 
     public Api build() {
 
-
         api = new Api(propertiesReader.getServerAddress(), propertiesReader.getBasicAuthUser(),
                 propertiesReader.getBasicAuthPw());
         console = new DebugConsoleAlpha(api);
