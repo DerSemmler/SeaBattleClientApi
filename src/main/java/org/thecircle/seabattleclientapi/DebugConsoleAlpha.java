@@ -52,12 +52,12 @@ public class DebugConsoleAlpha {
                             System.out.println("Password set to: " + password);
                             break;
 
-                        case "start":
-                            response = api.startGame(lineSplit[1]);
-                            if(response.equals("game created")) {
+                        case "newgame":
+                            ServerResponse response2 = api.newGame(lineSplit[1]);
+                            if(response2 == ServerResponse.SUCCESS) {
                                 game = lineSplit[1];
                             }
-                            System.out.println(response);
+                            System.out.println("hi" + response2);
                             break;
                         case "stopall":
                             if(lineSplit.length == 3) {

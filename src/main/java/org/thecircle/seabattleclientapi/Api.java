@@ -29,44 +29,24 @@ public class Api {
         restTemplate = new RestTemplateBuilder().build();
     }
 
-    public String startGame(String gameName) {
+    public ServerResponse newGame(String gameName) {
         String url = serverAddress + "/api/" + gameName + "/newgame";
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
-        } catch (HttpClientErrorException | ResourceAccessException e) {
-            return e.getMessage();
-        }
+        return send(url);
     }
 
-    public String stopAllGames(int player, String password) {
+    public ServerResponse stopAllGames(int player, String password) {
         String url = serverAddress + "/api/stopall/" + player + "?pw=" + password;
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
-        } catch (HttpClientErrorException | ResourceAccessException e) {
-            return e.getMessage();
-        }
+        return send(url);
     }
 
-    public String stopGame(String gameName, int player, String password) {
+    public ServerResponse stopGame(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/stop/" + player + "?pw=" + password;
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
-        } catch (HttpClientErrorException | ResourceAccessException e) {
-            return e.getMessage();
-        }
+        return send(url);
     }
 
-    public String restartGame(String gameName, int player, String password) {
+    public ServerResponse restartGame(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/restart/" + player + "?pw=" + password;
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return response.getBody();
-        } catch (HttpClientErrorException | ResourceAccessException e) {
-            return e.getMessage();
-        }
+        return send(url);
     }
 
     public String register(String gameName, int player, String password) {
@@ -151,6 +131,16 @@ public class Api {
             return response.getBody();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             return e.getMessage();
+        }
+    }
+
+    private ServerResponse send(String url) {
+        try {
+            ResponseEntity<ServerResponse> response = restTemplate.getForEntity(url, ServerResponse.class);
+            return response.getBody();
+        } catch (HttpClientErrorException | ResourceAccessException e) {
+            System.out.println(e);
+            return ServerResponse.ERROR;
         }
     }
 }

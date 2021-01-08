@@ -12,10 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameInfo {
 
-    private String gameState;
+    private GameStates gameState;
     private int rounds;
     private int currentPlayer;
     private int startPlayer;
+    private int winner;
     private int shotsPlayer1;
     private int shotsPlayer2;
     private int hitsPlayer1;
