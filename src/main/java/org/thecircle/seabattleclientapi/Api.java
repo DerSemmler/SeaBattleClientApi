@@ -29,8 +29,9 @@ public class Api {
         restTemplate = new RestTemplateBuilder().build();
     }
 
-    public ServerResponse newGame(String gameName) {
-        String url = serverAddress + "/api/" + gameName + "/newgame";
+    public ServerResponse newGame(String gameName, int boardSize, String shipSet) {
+        String url = serverAddress + "/api/" + gameName + "/newgame?boardsize=" + gameName
+                + "?shipset=" + shipSet;
         return send(url);
     }
 

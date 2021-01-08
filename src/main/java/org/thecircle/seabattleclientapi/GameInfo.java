@@ -23,5 +23,7 @@ public class GameInfo {
     private int hitsPlayer2;
     private int remainingShipsPlayer1;
     private int remainingShipsPlayer2;
-
+    private int boardSize;
+    private String shipSet;
+    private int[] shipsNeededBySize;
 }

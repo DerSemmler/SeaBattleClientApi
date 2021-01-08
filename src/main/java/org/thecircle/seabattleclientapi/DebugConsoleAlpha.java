@@ -53,11 +53,11 @@ public class DebugConsoleAlpha {
                             break;
 
                         case "newgame":
-                            ServerResponse response2 = api.newGame(lineSplit[1]);
+                            ServerResponse response2 = api.newGame(lineSplit[1],
+                                    Integer.parseInt(lineSplit[2]), lineSplit[3]);
                             if(response2 == ServerResponse.SUCCESS) {
                                 game = lineSplit[1];
                             }
-                            System.out.println("hi" + response2);
                             break;
                         case "stopall":
                             if(lineSplit.length == 3) {
@@ -112,6 +112,9 @@ public class DebugConsoleAlpha {
                         case "visual":
                             System.out.println(api.getVisual(game, player, password, lineSplit[1]));
                             break;
+                        case "info":
+                            printGameInfo(api.getGameInfo(game, player, password));
+                            break;
                         case "exit":
                             read = false;
                             break;
@@ -125,5 +128,21 @@ public class DebugConsoleAlpha {
                 }
             }
         }).start();
+    }
+
+    private void printGameInfo(GameInfo info) {
+        System.out.println("Gamestate: " + info.getGameState());
+        System.out.println("Rounds: " + info.getRounds());
+        System.out.println("Current player: " + info.getCurrentPlayer());
+        System.out.println("Start player: " + info.getStartPlayer());
+        System.out.println("Winner: " + info.getWinner());
+        System.out.println("Shots PLayer 1: " + info.getShotsPlayer1());
+        System.out.println("Shots PLayer 2: " + info.getShotsPlayer2());
+        System.out.println("Hits Player 1: " + info.getHitsPlayer1());
+        System.out.println("Hits Player 2: " + info.getHitsPlayer2());
+        System.out.println("Remaining Ships Player 1: " + info.getRemainingShipsPlayer1());
+        System.out.println("Remaining Ships Player 1: " + info.getRemainingShipsPlayer2());
+        System.out.println("Boardsize: " + info.getBoardSize());
+        System.out.println("Shipset: " + info.getShipSet());
     }
 }
