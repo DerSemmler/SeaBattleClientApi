@@ -111,7 +111,7 @@ public class Api {
         }
     }
 
-    public boolean myTurn(String gameName, int player, String password) {
+    public boolean isMyTurn(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/myturn/" + player + "?pw=" + password;
         try {
             MyTurnPayload payload = restTemplate.getForEntity(url, MyTurnPayload.class).getBody();

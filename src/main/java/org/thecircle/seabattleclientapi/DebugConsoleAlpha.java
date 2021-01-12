@@ -87,7 +87,12 @@ public class DebugConsoleAlpha {
                             }
                             break;
                         case "myturn":
-                            System.out.println(api.myTurn(game, player, password));
+                            boolean b = api.isMyTurn(game, player, password);
+                            if(api.getServerResponse() != ServerResponse.SUCCESS) {
+                                System.out.println(api.getServerResponse());
+                            } else {
+                                System.out.println(b);
+                            }
                             break;
                         case "skip":
                             System.out.println(api.skip(game, player, password));
@@ -104,14 +109,24 @@ public class DebugConsoleAlpha {
                             System.out.println(api.placeShips(game, player, password, shipCoordinates.toArray(new ShipCoordinates[0])));
                             break;
                         case "winner":
-                            System.out.println(api.getWinner(game, player, password));
+                            int winner = api.getWinner(game, player, password);
+                            if(winner == 1 || winner == 2) {
+                                System.out.println("Winner: " + winner);
+                            } else {
+                                System.out.println(api.getServerResponse());
+                            }
                             break;
                         case "shoot":
                             System.out.println(api.shoot(game, player, password,
                                     Integer.parseInt(lineSplit[1]), Integer.parseInt(lineSplit[2])));
                             break;
                         case "visual":
-                            System.out.println(api.getVisual(game, player, password, lineSplit[1]));
+                            String visual = api.getVisual(game, player, password, lineSplit[1]);
+                            if(visual != null) {
+                                System.out.println(visual);
+                            } else {
+                                System.out.println(api.getServerResponse());
+                            }
                             break;
                         case "info":
                             GameInfo info = api.getGameInfo(game, player, password);
