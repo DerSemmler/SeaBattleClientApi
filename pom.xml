@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>seabattleclientapi</artifactId>
-    <version>v0.1.7-alpha</version>
+    <version>v0.1.8-alpha</version>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>

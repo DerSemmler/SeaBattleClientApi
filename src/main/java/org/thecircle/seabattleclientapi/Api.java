@@ -101,17 +101,9 @@ public class Api {
     public GameInfo getGameInfo(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/info/" + player + "?pw=" + password;
         try {
-            ResponseEntity<?> response = restTemplate.getForEntity(url, GameInfo.class);
-            if(response.getBody() instanceof GameInfo) {
-                serverResponse = ServerResponse.SUCCESS;
-                return (GameInfo) response.getBody();
-            } else if(response.getBody() instanceof ServerResponse) {
-                serverResponse = (ServerResponse) response.getBody();
-                return null;
-            } else {
-                serverResponse = ServerResponse.ERROR;
-                return null;
-            }
+            GameInfoPayload payload = restTemplate.getForEntity(url, GameInfoPayload.class).getBody();
+            serverResponse = payload.getServerResponse();
+            return payload.getGameInfo();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             System.out.println(e);
             serverResponse = null;
@@ -122,17 +114,9 @@ public class Api {
     public boolean myTurn(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/myturn/" + player + "?pw=" + password;
         try {
-            ResponseEntity<?> response = restTemplate.getForEntity(url, Object.class);
-            if(response.getBody() instanceof Boolean) {
-                serverResponse = ServerResponse.SUCCESS;
-                return (Boolean) response.getBody();
-            } else if(response.getBody() instanceof ServerResponse) {
-                serverResponse = (ServerResponse) response.getBody();
-                return false;
-            } else {
-                serverResponse = ServerResponse.ERROR;
-                return false;
-            }
+            MyTurnPayload payload = restTemplate.getForEntity(url, MyTurnPayload.class).getBody();
+            serverResponse = payload.getServerResponse();
+            return payload.isMyTurn();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             System.out.println(e);
             serverResponse = null;
@@ -143,17 +127,9 @@ public class Api {
     public int getWinner(String gameName, int player, String password) {
         String url = serverAddress + "/api/" + gameName + "/winner/" + player + "?pw=" + password;
         try {
-            ResponseEntity<?> response = restTemplate.getForEntity(url, Object.class);
-            if(response.getBody() instanceof Integer) {
-                serverResponse = ServerResponse.SUCCESS;
-                return (Integer) response.getBody();
-            } else if(response.getBody() instanceof ServerResponse) {
-                serverResponse = (ServerResponse) response.getBody();
-                return -1;
-            } else {
-                serverResponse = ServerResponse.ERROR;
-                return -1;
-            }
+            WinnerPayload payload = restTemplate.getForEntity(url, WinnerPayload.class).getBody();
+            serverResponse = payload.getServerResponse();
+            return payload.getWinner();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             System.out.println(e);
             serverResponse = null;
@@ -164,17 +140,9 @@ public class Api {
     public String getVisual(String gameName, int player, String password, String arg) {
         String url = serverAddress + "/api/" + gameName + "/visual/" + arg + "/" + player + "?pw=" + password;
         try {
-            ResponseEntity<?> response = restTemplate.getForEntity(url, Object.class);
-            if(response.getBody() instanceof String) {
-                serverResponse = ServerResponse.SUCCESS;
-                return (String) response.getBody();
-            } else if(response.getBody() instanceof ServerResponse) {
-                serverResponse = (ServerResponse) response.getBody();
-                return null;
-            } else {
-                serverResponse = ServerResponse.ERROR;
-                return null;
-            }
+            VisualPayload payload = restTemplate.getForEntity(url, VisualPayload.class).getBody();
+            serverResponse = payload.getServerResponse();
+            return payload.getVisual();
         } catch (HttpClientErrorException | ResourceAccessException e) {
             System.out.println(e);
             serverResponse = null;
