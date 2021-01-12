@@ -45,6 +45,7 @@ class PropertiesReader {
             }
 
         } catch (IOException e) {
+            System.out.println("Customize config.properties before building.");
             createNewPropertiesFile();
         }
     }

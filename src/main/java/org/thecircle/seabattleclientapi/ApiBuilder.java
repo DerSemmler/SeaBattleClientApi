@@ -13,12 +13,10 @@ public class ApiBuilder {
 
     public ApiBuilder() {
         propertiesReader = new PropertiesReader();
-        System.out.println("Customize config.properties before building.");
     }
 
     public ApiBuilder(String configPath) {
         propertiesReader = new PropertiesReader(configPath);
-        System.out.println("Customize config.properties before building.");
     }
 
     public Api build() {

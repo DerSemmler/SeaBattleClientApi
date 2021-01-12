@@ -1,5 +1,7 @@
 package org.thecircle.seabattleclientapi;
 
+import org.springframework.http.ResponseEntity;
+
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +11,9 @@ public class DebugConsoleAlpha {
 
     private boolean read = true;
     private Api api;
-    private int player = -1;
-    private String password = "";
-    private String game = "";
+    private int player = 1;
+    private String password = "pass";
+    private String game = "test";
     private List<ShipCoordinates> shipCoordinates = new ArrayList<>();
 
     public DebugConsoleAlpha(Api api) {
@@ -37,7 +39,7 @@ public class DebugConsoleAlpha {
                 String[] lineSplit = line.split("\\s+");
 
                 try {
-                    String response = "";
+                    ServerResponse response;
                     switch (lineSplit[0]) {
                         case "setgame":
                             game = lineSplit[1];
@@ -51,13 +53,12 @@ public class DebugConsoleAlpha {
                             password = lineSplit[1];
                             System.out.println("Password set to: " + password);
                             break;
-
                         case "newgame":
-                            ServerResponse response2 = api.newGame(lineSplit[1],
-                                    Integer.parseInt(lineSplit[2]), lineSplit[3]);
-                            if(response2 == ServerResponse.SUCCESS) {
+                            response = api.newGame(lineSplit[1], Integer.parseInt(lineSplit[2]), lineSplit[3]);
+                            if(response == ServerResponse.SUCCESS) {
                                 game = lineSplit[1];
                             }
+                            System.out.println(response);
                             break;
                         case "stopall":
                             if(lineSplit.length == 3) {
@@ -75,7 +76,7 @@ public class DebugConsoleAlpha {
                         case "register":
                             if(!game.isEmpty()) {
                                 response = api.register(game, Integer.parseInt(lineSplit[1]), lineSplit[2]);
-                                if (response.equals("player registered")) {
+                                if (response == ServerResponse.SUCCESS) {
                                     player = Integer.parseInt(lineSplit[1]);
                                     password = lineSplit[2];
                                 }
@@ -113,7 +114,12 @@ public class DebugConsoleAlpha {
                             System.out.println(api.getVisual(game, player, password, lineSplit[1]));
                             break;
                         case "info":
-                            printGameInfo(api.getGameInfo(game, player, password));
+                            GameInfo info = api.getGameInfo(game, player, password);
+                            if(info != null) {
+                                printGameInfo(info);
+                            } else {
+                                System.out.println(api.getServerResponse());
+                            }
                             break;
                         case "exit":
                             read = false;
