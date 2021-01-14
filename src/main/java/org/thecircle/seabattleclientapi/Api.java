@@ -84,6 +84,12 @@ public class Api {
         }
     }
 
+    public ServerResponse placeShipsRandomly(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/placeships/randomly/" + player + "?pw=" + password;
+        serverResponse = getMapping(url);
+        return serverResponse;
+    }
+
     public ServerResponse shoot(String gameName, int player, String password, int x, int y) {
         String url = serverAddress + "/api/" + gameName + "/shoot/" + player + "?pw=" + password;
         ShootRequest request = new ShootRequest(x, y);

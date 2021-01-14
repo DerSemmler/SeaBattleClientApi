@@ -108,6 +108,9 @@ public class DebugConsoleAlpha {
                         case "placeships":
                             System.out.println(api.placeShips(game, player, password, shipCoordinates.toArray(new ShipCoordinates[0])));
                             break;
+                        case "placeships-randomly":
+                            System.out.println(api.placeShipsRandomly(game, player, password));
+                            break;
                         case "winner":
                             int winner = api.getWinner(game, player, password);
                             if(winner == 1 || winner == 2) {
