@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-class PlaceShipsRequest {
+public class PlaceShipsRequest {
 
     private ShipCoordinates[] ships;
 
