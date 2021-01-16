@@ -156,6 +156,19 @@ public class Api {
         }
     }
 
+    public int[][] getBoard(String gameName, int player, String password) {
+        String url = serverAddress + "/api/" + gameName + "/getboard/" + player + "?pw=" + password;
+        try {
+            GetBoardPayload payload = restTemplate.getForEntity(url, GetBoardPayload.class).getBody();
+            serverResponse = payload.getServerResponse();
+            return payload.getBoard();
+        } catch (HttpClientErrorException | ResourceAccessException e) {
+            System.out.println(e);
+            serverResponse = null;
+            return null;
+        }
+    }
+
     private ServerResponse getMapping(String url) {
         try {
             ResponseEntity<ServerResponse> response = restTemplate.getForEntity(url, ServerResponse.class);
